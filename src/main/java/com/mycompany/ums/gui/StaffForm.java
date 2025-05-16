@@ -7,8 +7,9 @@ import com.mycompany.ums.db.DatabaseHandler;
 public class StaffForm {
     public void display() {
         JFrame frame = new JFrame("Staff Registration");
-        frame.setSize(400, 300);
+        frame.setSize(400, 350);
         frame.setLocationRelativeTo(null);
+        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
         JLabel nameLabel = new JLabel("Username:");
         JTextField nameField = new JTextField();
@@ -22,6 +23,9 @@ public class StaffForm {
         JLabel deptLabel = new JLabel("Department:");
         JTextField deptField = new JTextField();
 
+        JLabel uniLabel = new JLabel("University:");
+        JComboBox<String> universityCombo = new JComboBox<>(DatabaseHandler.getUniversityNames());
+
         JButton saveButton = new JButton("Save");
 
         saveButton.addActionListener(e -> {
@@ -29,11 +33,15 @@ public class StaffForm {
             String email = emailField.getText().trim();
             String staffId = idField.getText().trim();
             String department = deptField.getText().trim();
+            String university = (String) universityCombo.getSelectedItem();
 
-            if (!username.isEmpty() && !email.isEmpty() && !staffId.isEmpty() && !department.isEmpty()) {
+            if (!username.isEmpty() && !email.isEmpty() && !staffId.isEmpty() && !department.isEmpty() && university != null) {
+                
+                int universityId = Integer.parseInt(university.split(" - ")[0]);
+
                 int userId = DatabaseHandler.insertUser(username, email, "staff");
                 if (userId != -1) {
-                    DatabaseHandler.insertStaff(staffId, userId, department);
+                    DatabaseHandler.insertStaff(staffId, userId, department, universityId);
                     JOptionPane.showMessageDialog(frame, "Staff member saved to database!");
                     frame.dispose();
                 } else {
@@ -45,7 +53,7 @@ public class StaffForm {
         });
 
         JPanel panel = new JPanel();
-        panel.setLayout(new GridLayout(0, 1));
+        panel.setLayout(new GridLayout(0, 1, 5, 5)); 
         panel.add(nameLabel);
         panel.add(nameField);
         panel.add(emailLabel);
@@ -54,10 +62,11 @@ public class StaffForm {
         panel.add(idField);
         panel.add(deptLabel);
         panel.add(deptField);
+        panel.add(uniLabel);
+        panel.add(universityCombo);
         panel.add(saveButton);
 
         frame.add(panel);
         frame.setVisible(true);
     }
 }
-

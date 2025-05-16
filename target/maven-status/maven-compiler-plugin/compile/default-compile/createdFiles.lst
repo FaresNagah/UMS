@@ -13,6 +13,7 @@ com\mycompany\ums\gui\CollegeForm.class
 com\mycompany\ums\gui\UniversityRecordViewer.class
 com\mycompany\ums\gui\GPAViewer.class
 com\mycompany\ums\models\Student.class
+com\mycompany\ums\gui\ViewCollege.class
 com\mycompany\ums\models\Department.class
 com\mycompany\ums\gui\UniversityForm.class
 com\mycompany\ums\gui\AssignCourseForm.class

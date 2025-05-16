@@ -26,6 +26,9 @@ public class MainMenu {
         JButton exitBtn = new JButton("Exit");
 
         JButton viewUniBtn = new JButton("View Universities");
+        JButton viewCollegeBtn = new JButton("View Colleges");
+     
+    
         JButton viewStudentBtn = new JButton("View Students");
         JButton viewCourseBtn = new JButton("View Courses");
         JButton viewGpaBtn = new JButton("View Student GPAs");
@@ -47,6 +50,7 @@ public class MainMenu {
         exitBtn.addActionListener(e -> System.exit(0));
 
         viewUniBtn.addActionListener(e -> new UniversityRecordViewer().displayRecordList());
+        viewCollegeBtn.addActionListener(e -> new ViewCollege().display());
         viewStudentBtn.addActionListener(e -> new StudentRecordViewer().displayRecordList());
         viewCourseBtn.addActionListener(e -> new CourseRecordViewer().displayRecordList());
         viewGpaBtn.addActionListener(e -> new GPAViewer().displayRecordList());
@@ -67,6 +71,7 @@ public class MainMenu {
         panel.add(assignBtn);
 
         panel.add(viewUniBtn);
+        panel.add(viewCollegeBtn);
         panel.add(viewStudentBtn);
         panel.add(viewCourseBtn);
         panel.add(viewGpaBtn);

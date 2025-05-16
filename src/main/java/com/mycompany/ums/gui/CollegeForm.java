@@ -4,7 +4,10 @@
  */
 package com.mycompany.ums.gui;
 
+import com.mycompany.ums.db.DatabaseHandler;
 import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class CollegeForm {
     public void display() {
@@ -16,6 +19,18 @@ public class CollegeForm {
         JTextField collegeField = new JTextField();
 
         JButton saveButton = new JButton("Save");
+
+        saveButton.addActionListener(e -> {
+    String collegeName = collegeField.getText().trim();
+    if (!collegeName.isEmpty()) {
+        DatabaseHandler.insertCollege(collegeName);
+        JOptionPane.showMessageDialog(frame, "Saved successfully to database.");
+        frame.dispose();
+    } else {
+        JOptionPane.showMessageDialog(frame, "Please enter a college name.");
+    }
+});
+
 
         JPanel panel = new JPanel();
         panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
