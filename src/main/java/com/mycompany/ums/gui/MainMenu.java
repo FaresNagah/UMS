@@ -52,7 +52,7 @@ public class MainMenu {
         viewGpaBtn.addActionListener(e -> new GPAViewer().displayRecordList());
 
         deleteStudentBtn.addActionListener(e -> new DeleteStudentForm().display());
-        updateUniBtn.addActionListener(e -> new UniversityForm().display());
+        updateUniBtn.addActionListener(e -> new uniUpdate().display());
         updateStudentBtn.addActionListener(e -> new StudentForm().display());
         updateCourseBtn.addActionListener(e -> new CourseForm().display());
 
