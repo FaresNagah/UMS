@@ -29,13 +29,17 @@ public class DatabaseHandler {
         try (Statement stmt = conn.createStatement()) {
             stmt.execute("CREATE TABLE IF NOT EXISTS university (id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, location TEXT)");
             stmt.execute("CREATE TABLE IF NOT EXISTS departments (id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, university_id INTEGER)");
+            stmt.execute("CREATE TABLE IF NOT EXISTS college (id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT)");
             stmt.execute("CREATE TABLE IF NOT EXISTS users (id INTEGER PRIMARY KEY AUTOINCREMENT, username TEXT, email TEXT, role TEXT)");
             stmt.execute("CREATE TABLE IF NOT EXISTS students (student_id TEXT PRIMARY KEY, user_id INTEGER)");
-            stmt.execute("CREATE TABLE IF NOT EXISTS staff (staff_id TEXT PRIMARY KEY, user_id INTEGER, department TEXT)");
+            stmt.execute("CREATE TABLE IF NOT EXISTS staff (staff_id TEXT PRIMARY KEY, user_id INTEGER, department TEXT, university_id INTEGER)");
+      
             stmt.execute("CREATE TABLE IF NOT EXISTS courses (course_code TEXT PRIMARY KEY, name TEXT, credits INTEGER, department TEXT)");
             stmt.execute("CREATE TABLE IF NOT EXISTS enrollments (student_id TEXT, course_code TEXT)");
             stmt.execute("CREATE TABLE IF NOT EXISTS grades (student_id TEXT, course_code TEXT, grade REAL)");
             stmt.execute("CREATE TABLE IF NOT EXISTS teaches (staff_id TEXT, course_code TEXT)");
+           
+
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Error creating tables: " + e.getMessage());
         }
@@ -71,18 +75,39 @@ public class DatabaseHandler {
         }
     }
 
-    public static void insertStaff(String staffId, int userId, String department) {
-        try {
-            String sql = "INSERT INTO staff (staff_id, user_id, department) VALUES (?, ?, ?)";
-            PreparedStatement stmt = getConnection().prepareStatement(sql);
-            stmt.setString(1, staffId);
-            stmt.setInt(2, userId);
-            stmt.setString(3, department);
-            stmt.executeUpdate();
-        } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Insert Staff failed: " + e.getMessage());
-        }
+    public static void insertStaff(String staffId, int userId, String department, int universityId) {
+    try {
+        String sql = "INSERT INTO staff (staff_id, user_id, department, university_id) VALUES (?, ?, ?, ?)";
+        PreparedStatement stmt = getConnection().prepareStatement(sql);
+        stmt.setString(1, staffId);
+        stmt.setInt(2, userId);
+        stmt.setString(3, department);
+        stmt.setInt(4, universityId);
+        stmt.executeUpdate();
+    } catch (SQLException e) {
+        JOptionPane.showMessageDialog(null, "Insert Staff failed: " + e.getMessage());
     }
+}
+
+    public static DefaultComboBoxModel<String> getUniversityNames() {
+    DefaultComboBoxModel<String> model = new DefaultComboBoxModel<>();
+    try {
+        String sql = "SELECT id, name FROM university";
+        Statement stmt = getConnection().createStatement();
+        ResultSet rs = stmt.executeQuery(sql);
+        while (rs.next()) {
+            int id = rs.getInt("id");
+            String name = rs.getString("name");
+            model.addElement(id + " - " + name); 
+        }
+        rs.close();
+        stmt.close();
+    } catch (SQLException e) {
+        JOptionPane.showMessageDialog(null, "Failed to load universities: " + e.getMessage());
+    }
+    return model;
+}
+
 
     public static void insertGrade(String studentId, String courseCode, double grade) {
         try {
@@ -108,6 +133,20 @@ public class DatabaseHandler {
             JOptionPane.showMessageDialog(null, "Insert Enrollment failed: " + e.getMessage());
         }
     }
+    
+    public static void insertCollege(String name) {
+    try {
+        String sql = "INSERT INTO college (name) VALUES (?)";
+        PreparedStatement stmt = getConnection().prepareStatement(sql);
+        stmt.setString(1, name);
+        stmt.executeUpdate();
+    } catch (SQLException e) {
+        JOptionPane.showMessageDialog(null, "Insert College failed: " + e.getMessage());
+    }
+}
+
+
+
 
     public static void insertTeaches(String staffId, String courseCode) {
         try {
