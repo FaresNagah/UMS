@@ -1,12 +1,10 @@
 package com.mycompany.ums.models;
-
 import java.util.ArrayList;
-import java.util.HashMap;
 
 public class Student extends User {
     private String studentID;
     private ArrayList<Course> courses = new ArrayList<>();
-    private HashMap<String, Double> grades = new HashMap<>();
+    private ArrayList<CourseGrade> courseGrades = new ArrayList<>();
 
     public Student(String username, String email, String studentID) {
         super(username, email, "student");
@@ -14,31 +12,38 @@ public class Student extends User {
     }
 
     public void enrollCourse(Course course) {
-        if (!courses.contains(course)) {
+        boolean found = false;
+        for (Course c : courses) {
+            if (c.getCourseCode().equals(course.getCourseCode())) {
+                found = true;
+                break;
+            }
+        }
+
+        if (!found) {
             courses.add(course);
-            grades.put(course.getCourseCode(), 0.0);
+            courseGrades.add(new CourseGrade(course, 0.0));
         }
     }
 
     public void updateGrade(String courseCode, double grade) {
-        grades.put(courseCode, grade);
+        for (CourseGrade cg : courseGrades) {
+            if (cg.getCourse().getCourseCode().equals(courseCode)) {
+                cg.setGrade(grade);
+            }
+        }
     }
 
     public double calculateGPA() {
-        if (grades.isEmpty()) return 0;
-        double total = 0;
-        for (double grade : grades.values()) {
-            total += grade;
+        if (courseGrades.size() == 0) {
+            return 0;
         }
-        return total / grades.size();
-    }
 
-    public ArrayList<Course> getCourses() {
-        return courses;
-    }
+        double sum = 0;
+        for (CourseGrade cg : courseGrades) {
+            sum += cg.getGrade();
+        }
 
-    public String getStudentID() {
-        return studentID;
+        return sum / courseGrades.size();
     }
 }
-
