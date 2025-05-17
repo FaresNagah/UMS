@@ -33,11 +33,20 @@ public class StaffForm {
             String email = emailField.getText().trim();
             String staffId = idField.getText().trim();
             String department = deptField.getText().trim();
+            
             String university = (String) universityCombo.getSelectedItem();
+int universityId = -1;
+try {
+    universityId = Integer.parseInt(university.split(" - ")[0]);
+} catch (Exception ex) {
+    JOptionPane.showMessageDialog(frame, "Invalid university selection.");
+    return;
+}
+
 
             if (!username.isEmpty() && !email.isEmpty() && !staffId.isEmpty() && !department.isEmpty() && university != null) {
                 
-                int universityId = Integer.parseInt(university.split(" - ")[0]);
+               
 
                 int userId = DatabaseHandler.insertUser(username, email, "staff");
                 if (userId != -1) {

@@ -35,7 +35,7 @@ public class MainMenu {
 
         JButton deleteStudentBtn = new JButton("Delete Student");
         JButton updateUniBtn = new JButton("Update University");
-        JButton updateStudentBtn = new JButton("Update Student");
+        
         JButton updateCourseBtn = new JButton("Update Course");
 
 
@@ -58,7 +58,6 @@ public class MainMenu {
 
         deleteStudentBtn.addActionListener(e -> new DeleteStudentForm().display());
         updateUniBtn.addActionListener(e -> new uniUpdate().display());
-        updateStudentBtn.addActionListener(e -> new StudentForm().display());
         updateCourseBtn.addActionListener(e -> {new UpdateCourseForm().display();});
 
         panel.add(uniBtn);
@@ -78,7 +77,7 @@ public class MainMenu {
         panel.add(viewGpaBtn);
 
         panel.add(updateUniBtn);
-        panel.add(updateStudentBtn);
+        
         panel.add(updateCourseBtn);
         panel.add(deleteStudentBtn);
 
