@@ -52,6 +52,7 @@ public class uniUpdate {
                     } else {
                         JOptionPane.showMessageDialog(null, "No university found with that ID.");
                     }
+                    frame.dispose();
                 }
             } catch (SQLException ex) {
                 JOptionPane.showMessageDialog(null, "Error updating university: " + ex.getMessage());

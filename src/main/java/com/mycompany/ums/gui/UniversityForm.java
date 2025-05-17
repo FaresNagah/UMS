@@ -35,6 +35,7 @@ public class UniversityForm {
             stmt.setString(2, location);
             stmt.executeUpdate();
             JOptionPane.showMessageDialog(null, "University added successfully.");
+             frame.dispose();
         }
     } catch (SQLException ex) {
         JOptionPane.showMessageDialog(null, "Error adding university: " + ex.getMessage());
@@ -53,5 +54,8 @@ public class UniversityForm {
 
         frame.add(panel);
         frame.setVisible(true);
+       
+
     }
+    
 }

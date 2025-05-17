@@ -32,8 +32,10 @@ public class DatabaseHandler {
             stmt.execute("CREATE TABLE IF NOT EXISTS college (id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT)");
             stmt.execute("CREATE TABLE IF NOT EXISTS users (id INTEGER PRIMARY KEY AUTOINCREMENT, username TEXT, email TEXT, role TEXT)");
             stmt.execute("CREATE TABLE IF NOT EXISTS students (student_id TEXT PRIMARY KEY, user_id INTEGER)");
-            stmt.execute("CREATE TABLE IF NOT EXISTS staff (staff_id TEXT PRIMARY KEY, user_id INTEGER, department TEXT, university_id INTEGER)");
-      
+          
+      stmt.execute("DROP TABLE IF EXISTS staff");
+stmt.execute("CREATE TABLE IF NOT EXISTS staff (staff_id TEXT PRIMARY KEY, user_id INTEGER, department TEXT, university_id INTEGER)");
+
             stmt.execute("CREATE TABLE IF NOT EXISTS courses (course_code TEXT PRIMARY KEY, name TEXT, credits INTEGER, department TEXT)");
             stmt.execute("CREATE TABLE IF NOT EXISTS enrollments (student_id TEXT, course_code TEXT)");
             stmt.execute("CREATE TABLE IF NOT EXISTS grades (student_id TEXT, course_code TEXT, grade REAL)");

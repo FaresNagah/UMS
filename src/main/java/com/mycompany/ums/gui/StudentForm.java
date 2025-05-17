@@ -20,7 +20,7 @@ public class StudentForm {
         JLabel emailLabel = new JLabel(" Email:");
         JTextField emailField = new JTextField();
 
-        JButton addButton = new JButton("update");
+        JButton addButton = new JButton("add");
 
         addButton.addActionListener(e -> {
     String studentId = idField.getText();
@@ -32,6 +32,7 @@ public class StudentForm {
         if (userId != -1) {
             DatabaseHandler.insertStudent(studentId, userId);
             JOptionPane.showMessageDialog(null, "Student added successfully.");
+            frame.dispose();
         }
     } catch (Exception ex) {
         JOptionPane.showMessageDialog(null, "Error adding student: " + ex.getMessage());
