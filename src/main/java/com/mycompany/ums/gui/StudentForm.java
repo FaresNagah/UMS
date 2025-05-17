@@ -20,7 +20,7 @@ public class StudentForm {
         JLabel emailLabel = new JLabel(" Email:");
         JTextField emailField = new JTextField();
 
-        JButton addButton = new JButton("add");
+        JButton addButton = new JButton("update");
 
         addButton.addActionListener(e -> {
     String studentId = idField.getText();

@@ -10,7 +10,9 @@ com\mycompany\ums\gui\StaffForm.class
 com\mycompany\ums\models\User.class
 com\mycompany\ums\gui\uniUpdate.class
 com\mycompany\ums\gui\CollegeForm.class
+com\mycompany\ums\gui\UpdateCourseForm.class
 com\mycompany\ums\gui\UniversityRecordViewer.class
+com\mycompany\ums\models\CourseGrade.class
 com\mycompany\ums\gui\GPAViewer.class
 com\mycompany\ums\models\Student.class
 com\mycompany\ums\gui\ViewCollege.class
